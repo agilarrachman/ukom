@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PegawaiExport;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
 {
@@ -46,6 +47,11 @@ class PegawaiController extends Controller
 
         $pdf = Pdf::loadView('pdf.pegawai', compact('pegawai'));
         return $pdf->download('Data-Pegawai-' . $pegawai->NIP . '.pdf');
+    }
+
+    public function exportExcel($nip)
+    {
+        return Excel::download(new PegawaiExport($nip), 'Pegawai-' . $nip . '.xlsx');
     }
 
     /**

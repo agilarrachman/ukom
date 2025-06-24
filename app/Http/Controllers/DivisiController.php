@@ -13,11 +13,7 @@ class DivisiController extends Controller
      */
     public function index()
     {
-        $divisi = Divisi::all();
-
-        return view('divisi', [
-            "divisi" => $divisi,
-        ]);
+        
     }
 
     /**
@@ -33,12 +29,7 @@ class DivisiController extends Controller
      */
     public function store(Request $request)
     {
-        $kodeDivisi = $request->input('Kode_Divisi');
-        $pegawai = Pegawai::where('Kode_Divisi', $kodeDivisi)->get();
-        $divisi = Divisi::all();
-        $divisiTerpilih = Divisi::where('Kode_Divisi', $kodeDivisi)->first();
-
-        return view('divisi', compact('pegawai', 'divisi', 'kodeDivisi', 'divisiTerpilih'));
+        
     }
 
 

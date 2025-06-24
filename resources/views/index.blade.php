@@ -4,73 +4,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <title>Data Pegawai | Sistem Kepegawaian PT ABC</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            border-radius: 1rem;
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
+        }
+    </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
-        <div class="container-fluid mx-5 d-flex justify-content-between">
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand fw-bold" href="/">Sistem Kepegawaian PT ABC</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse w-100" id="navbarNav">
-                <!-- Brand -->
-                <a class="navbar-brand fw-bold me-auto" href="/">Sistem Kepegawaian PT ABC</a>
-
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Pegawai</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/presensi">Presensi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/divisi">Divisi</a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <div class="heading mb-5">
-            <h1>Sistem Informasi Kepegawaian PT ABC</h1>
-            <p class="mb-3">Selamat datang di Sistem Informasi Kepegawaian PT ABC</p>
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold">Sistem Informasi Kepegawaian</h1>
+            <p class="text-muted">Masukkan NIP untuk melihat data pegawai</p>
         </div>
-        <form action="/" method="post" class="d-flex col-8 align-items-center mb-5">
+
+        <form action="/" method="post" class="row g-3 justify-content-center">
             @csrf
-            <p class="col-2 me-3 mb-0">Masukkan NIP:</p>
-            <input type="number" name="nip" class="form-control me-3" placeholder="Masukkan NIP Pegawai">
-            <button type="submit" class="btn btn-primary">Cari</button>
+            <div class="col-md-4">
+                <input type="number" name="nip" class="form-control form-control-lg" placeholder="Masukkan NIP Pegawai">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    🔍 Cari
+                </button>
+            </div>
         </form>
 
         @if(isset($pegawai))
-        @if($pegawai)
-        <div class="card col-6 mt-3">
-            <div class="card-body">
-                <h5 class="mb-3">Hasil Pencarian Data Pegawai:</h5>
-                <p><strong>Nama:</strong> {{ $pegawai->Nama }}</p>
-                <p><strong>Alamat:</strong> {{ $pegawai->Alamat }}</p>
-                <p><strong>Tanggal_Lahir:</strong> {{ $pegawai->Tanggal_Lahir->format('d F Y') }}</p>
-                <p><strong>Divisi:</strong> {{ $pegawai->divisi->Nama_Divisi }}</p>
-                <a href="/pegawai/pdf/{{ $pegawai->NIP }}" class="btn btn-danger mt-3" target="_blank">
-                    Download PDF
-                </a>
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                @if($pegawai)
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">📄 Hasil Pencarian Pegawai</h5>
+                        <p><strong>Nama:</strong> {{ $pegawai->Nama }}</p>
+                        <p><strong>Alamat:</strong> {{ $pegawai->Alamat }}</p>
+                        <p><strong>Tanggal Lahir:</strong> {{ $pegawai->Tanggal_Lahir->format('d F Y') }}</p>
+                        <p><strong>Divisi:</strong> {{ $pegawai->divisi->Nama_Divisi }}</p>
+                        <div class="d-flex gap-2 mt-4">
+                            <a href="/pegawai/pdf/{{ $pegawai->NIP }}" target="_blank" class="btn btn-danger">
+                                🧾 Download PDF
+                            </a>
+                            <form action="/pegawai/excel/{{ $pegawai->NIP }}" method="post">
+                                @csrf
+                                <input type="hidden" name="date" value="{{ $pegawai->NIP }}">
+                                <button type="submit" class="btn btn-success">
+                                    📊 Download Excel
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @else
+                <div class="alert alert-warning text-center">
+                    Pegawai dengan NIP tersebut tidak ditemukan.
+                </div>
+                @endif
             </div>
         </div>
-        @else
-        <div class="mt-3 alert alert-warning">
-            Pegawai dengan NIP tersebut tidak ditemukan.
-        </div>
-        @endif
         @endif
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

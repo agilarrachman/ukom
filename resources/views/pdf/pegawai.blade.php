@@ -6,26 +6,79 @@
     <title>Data Pegawai</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
+            margin: 40px;
+            color: #212529;
         }
 
-        h2 {
-            margin-bottom: 10px;
+        .header {
+            background-color: #0d6efd;
+            /* Bootstrap primary */
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 30px;
         }
 
-        p {
-            margin: 5px 0;
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .table td {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+        }
+
+        .table td.label {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            width: 30%;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 12px;
+            text-align: center;
+            color: #6c757d;
         }
     </style>
 </head>
 
 <body>
-    <h2>Data Pegawai</h2>
-    <p><strong>NIP:</strong> {{ $pegawai->NIP }}</p>
-    <p><strong>Nama:</strong> {{ $pegawai->Nama }}</p>
-    <p><strong>Alamat:</strong> {{ $pegawai->Alamat }}</p>
-    <p><strong>Tanggal Lahir:</strong> {{ \Carbon\Carbon::parse($pegawai->Tanggal_Lahir)->translatedFormat('d F Y') }}</p>
-    <p><strong>Divisi:</strong> {{ $pegawai->divisi->Nama_Divisi }}</p>
+    <div class="header">
+        <h2>Data Pegawai</h2>
+    </div>
+
+    <table class="table">
+        <tr>
+            <td class="label">NIP</td>
+            <td>{{ $pegawai->NIP }}</td>
+        </tr>
+        <tr>
+            <td class="label">Nama</td>
+            <td>{{ $pegawai->Nama }}</td>
+        </tr>
+        <tr>
+            <td class="label">Alamat</td>
+            <td>{{ $pegawai->Alamat }}</td>
+        </tr>
+        <tr>
+            <td class="label">Tanggal Lahir</td>
+            <td>{{ \Carbon\Carbon::parse($pegawai->Tanggal_Lahir)->translatedFormat('d F Y') }}</td>
+        </tr>
+        <tr>
+            <td class="label">Divisi</td>
+            <td>{{ $pegawai->divisi->Nama_Divisi ?? '-' }}</td>
+        </tr>
+    </table>
+
+    <div class="footer">
+        Dicetak oleh Sistem Kepegawaian PT ABC — {{ now()->format('d/m/Y H:i') }}
+    </div>
 </body>
 
 </html>

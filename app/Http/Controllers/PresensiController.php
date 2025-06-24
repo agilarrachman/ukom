@@ -14,7 +14,7 @@ class PresensiController extends Controller
      */
     public function index()
     {
-        return view('presensi');
+        
     }
 
     /**
@@ -30,17 +30,12 @@ class PresensiController extends Controller
      */
     public function store(Request $request)
     {
-        $date = $request->input('date');
-
-        $presensi = Presensi::whereDate('created_at', $date)->get(); 
-
-        return view('presensi', compact('presensi', 'date'));
+        
     }
 
     public function exportExcel(Request $request)
     {
-        $date = $request->input('date');
-        return Excel::download(new PresensiExport($date), 'Presensi-' . $date . '.xlsx');
+
     }
 
     /**
