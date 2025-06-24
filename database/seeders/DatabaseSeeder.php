@@ -82,12 +82,12 @@ class DatabaseSeeder extends Seeder
             'Kode_Divisi' => 'S1',
         ]);
 
-        Presensi::create(['NIP' => '11234', 'Jam_Masuk' => '08:10:00', 'Jam_Pulang' => '17:40:00']);
-        Presensi::create(['NIP' => '11235', 'Jam_Masuk' => '08:00:00', 'Jam_Pulang' => '17:07:00']);
-        Presensi::create(['NIP' => '11236', 'Jam_Masuk' => '07:00:00', 'Jam_Pulang' => '16:30:00']);
-        Presensi::create(['NIP' => '11237', 'Jam_Masuk' => '07:45:00', 'Jam_Pulang' => '16:40:00']);
-        Presensi::create(['NIP' => '11238', 'Jam_Masuk' => '07:50:00', 'Jam_Pulang' => '16:50:00']);
-        Presensi::create(['NIP' => '11239', 'Jam_Masuk' => '07:30:00', 'Jam_Pulang' => '17:00:00']);
-        Presensi::create(['NIP' => '11234', 'Jam_Masuk' => '07:20:00', 'Jam_Pulang' => '16:20:00']);
+        Presensi::create(['Tanggal' => Carbon::parse('2018-01-18'), 'NIP' => '11234', 'Jam_Masuk' => '08:10:00', 'Jam_Pulang' => '17:40:00']);
+        Presensi::create(['Tanggal' => Carbon::parse('2018-01-18'), 'NIP' => '11235', 'Jam_Masuk' => '08:00:00', 'Jam_Pulang' => '17:07:00']);
+        Presensi::create(['Tanggal' => Carbon::parse('2018-01-18'), 'NIP' => '11236', 'Jam_Masuk' => '07:00:00', 'Jam_Pulang' => '16:30:00']);
+        Presensi::create(['Tanggal' => Carbon::parse('2018-01-18'), 'NIP' => '11237', 'Jam_Masuk' => '07:45:00', 'Jam_Pulang' => '16:40:00']);
+        Presensi::create(['Tanggal' => Carbon::parse('2018-01-18'), 'NIP' => '11238', 'Jam_Masuk' => '07:50:00', 'Jam_Pulang' => '16:50:00']);
+        Presensi::create(['Tanggal' => Carbon::parse('2018-01-18'), 'NIP' => '11239', 'Jam_Masuk' => '07:30:00', 'Jam_Pulang' => '17:00:00']);
+        Presensi::create(['Tanggal' => Carbon::parse('2018-01-18'), 'NIP' => '11234', 'Jam_Masuk' => '07:20:00', 'Jam_Pulang' => '16:20:00']);
     }
 }

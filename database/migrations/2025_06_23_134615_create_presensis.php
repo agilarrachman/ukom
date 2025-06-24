@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('NIP');
             $table->foreign('NIP')->references('NIP')->on('TblPegawai')->onDelete('cascade');
+            $table->date('Tanggal');
             $table->time('Jam_Masuk');
             $table->time('Jam_Pulang');
             $table->timestamps();
